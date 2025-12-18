@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tempo_hoje/app/model/weather_model.dart';
+import 'package:tempo_hoje/app/viewmodels/location_by_city.dart';
 
 class PreveHoje extends StatelessWidget {
   const PreveHoje({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final today = context.select<LocationByCityViewModel, WeatherModel?>(
+      (vm) => vm.today,
+    );
+
+    if (today == null) {
+      return const SizedBox.shrink();
+    }
+
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -18,56 +29,56 @@ class PreveHoje extends StatelessWidget {
 
           const SizedBox(width: 16),
 
-          // Temperatura atual
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text('Agora', style: TextStyle(color: Colors.white70)),
+            children: [
               Text(
-                '32°C',
-                style: TextStyle(
+                ("${today.nameCity} - ${today.nameCountry}"),
+                style: const TextStyle(color: Colors.white70),
+              ),
+              Text(
+                '${today.temperature.round()}°F',
+                style: const TextStyle(
                   fontSize: 32,
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
                 ),
               ),
-            ],
-          ),
-
-          const Spacer(),
-
-          // Min / Max
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text('Min 18°', style: TextStyle(color: Colors.white70)),
-              SizedBox(height: 4),
-              Text('Max 33°', style: TextStyle(color: Colors.white70)),
-            ],
-          ),
-
-          const SizedBox(width: 16),
-
-          // Vento / Umidade
-          Column(
-            children: const [
-              Row(
-                children: [
-                  Icon(Icons.wind_power, size: 16, color: Colors.white),
-                  SizedBox(width: 4),
-                  Text('35 km/h', style: TextStyle(color: Colors.white)),
-                ],
+              Text(
+                'Sensação ${today.feelsLike.round()}°',
+                style: const TextStyle(color: Colors.white70),
               ),
-              SizedBox(height: 8),
+            ],
+          ),
+
+          Column(
+            children: [
               Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.water_drop_outlined,
                     size: 16,
                     color: Colors.white,
                   ),
-                  SizedBox(width: 4),
-                  Text('72%', style: TextStyle(color: Colors.white)),
+                  const SizedBox(width: 4),
+                  Text(
+                    '${today.humidity}%',
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.wind_power_outlined,
+                    size: 16,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    '${today.windSpeed}Km/h',
+                    style: const TextStyle(color: Colors.white),
+                  ),
                 ],
               ),
             ],
