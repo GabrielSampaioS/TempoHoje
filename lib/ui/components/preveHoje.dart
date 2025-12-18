@@ -17,71 +17,102 @@ class PreveHoje extends StatelessWidget {
     }
 
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.15),
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.sunny_snowing, size: 48, color: Colors.white),
+          Text(
+            "${today.nameCity} - ${today.nameCountry}",
+            style: const TextStyle(color: Colors.white70),
+          ),
 
-          const SizedBox(width: 16),
+          const SizedBox(height: 12),
 
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                ("${today.nameCity} - ${today.nameCountry}"),
-                style: const TextStyle(color: Colors.white70),
+              //const Icon(Icons.sunny_snowing, size: 48, color: Colors.white),
+              Image.network(
+                ("https://openweathermap.org/img/wn/${today.iconWeatherUrl}@2x.png"),
+                width: 48,
+                height: 48,
               ),
               Text(
-                '${today.temperature.round()}°F',
+                '${today.temperature.round() - 273}°C',
                 style: const TextStyle(
-                  fontSize: 32,
+                  fontSize: 36,
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
                 ),
               ),
-              Text(
-                'Sensação ${today.feelsLike.round()}°',
-                style: const TextStyle(color: Colors.white70),
+
+              const SizedBox(width: 12),
+
+              // Min / Max
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Min ${today.tempMin.round() - 273}°C',
+                    style: const TextStyle(color: Colors.white70),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Max ${today.tempMax.round() - 273}°C',
+                    style: const TextStyle(color: Colors.white70),
+                  ),
+                ],
+              ),
+
+              const Spacer(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.water_drop_outlined,
+                        size: 16,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        '${today.humidity}%',
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const Icon(
+                        Icons.wind_power_outlined,
+                        size: 16,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        '${today.windSpeed} m/s',
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),
-
-          Column(
-            children: [
-              Row(
-                children: [
-                  const Icon(
-                    Icons.water_drop_outlined,
-                    size: 16,
-                    color: Colors.white,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    '${today.humidity}%',
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  const Icon(
-                    Icons.wind_power_outlined,
-                    size: 16,
-                    color: Colors.white,
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    '${today.windSpeed}Km/h',
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
-            ],
+          Text(
+            ("${today.description[0].toUpperCase()}${today.description.substring(1)}"),
+            style: const TextStyle(
+              fontSize: 36,
+              fontWeight: FontWeight.w600,
+              color: Colors.white,
+            ),
           ),
         ],
       ),

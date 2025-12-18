@@ -55,8 +55,6 @@ class LocationByCityViewModel extends ChangeNotifier {
       _loading = true;
       notifyListeners();
 
-      // MOCK (troca pela API depois)
-
       final result = await datasource.fetchWeather(
         lat: location.lat,
         lon: location.lon,

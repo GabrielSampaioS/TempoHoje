@@ -45,6 +45,7 @@ class OpenWeatherDatasource implements WeatherDatasource {
     final uriFinal = Uri.https(_host, '/data/2.5/weather', {
       'lat': lat.toString(),
       'lon': lon.toString(),
+      'lang': "pt_br",
       'appid': apiKey,
     });
 
@@ -55,6 +56,5 @@ class OpenWeatherDatasource implements WeatherDatasource {
     }
 
     return jsonDecode(response.body);
-    
   }
 }

@@ -25,7 +25,10 @@ class _HomePageState extends State<HomePage> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xFF4A90E2), Color(0xFF50A7F9)],
+            colors: [
+              Color.fromARGB(255, 137, 192, 255),
+              Color.fromARGB(255, 106, 183, 255),
+            ],
           ),
         ),
         child: SafeArea(
@@ -46,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                     style: const TextStyle(color: Colors.white),
                     decoration: const InputDecoration(
                       icon: Icon(Icons.search, color: Colors.white),
-                      hintText: 'Piracicaba',
+                      hintText: 'Buscar cidade',
                       hintStyle: TextStyle(color: Colors.white70),
                       border: InputBorder.none,
                     ),
